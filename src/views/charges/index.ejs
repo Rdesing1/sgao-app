@@ -1,22 +1,73 @@
 <%- include('../partials/header.ejs')%>
-    <%if(typeof dataCharges != 'undefined') {%>
+    <%if(typeof dataCharges !='undefined' ) {%>
         <div class="container p-5">
             <table class="table">
                 <thead class="table-light">
-                  <td>#</td>
-                  <td>Nombre del cargo</td>
-                  <td>Responsabilidad</td>
-                  <td>Acciones</td>
+                    <td>#</td>
+                    <td>Nombre del cargo</td>
+                    <td>Responsabilidad</td>
+                    <td>Acciones</td>
                 </thead>
-                <tbody>
-                    <%dataCharges.forEach((Elemento => {%>
-                        <td><%=Elemento.id%></td>
-                        <td><%=Elemento.name%></td>
-                        <td><%=Elemento.responsability%></td>
-                        <td><a href="http://" class="btn btn-danger">Borrar</a><a href="http://" class="btn btn-secondary" style="margin-left: 6px;">Actualizar</a></td></td>
+                <%dataCharges.forEach((Elemento=> {%>
+                    <tbody>
+                        <td>
+                            <%=Elemento.id%>
+                        </td>
+                        <td>
+                            <%=Elemento.name%>
+                        </td>
+                        <td>
+                            <%=Elemento.responsability%>
+                        </td>
+                        <td><a href="http://localhost:3000/charges/delete/<%=Elemento.id%>"
+                                class="btn btn-danger">Borrar</a>
+                            <button type="submit" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Actualizar
+                            </button>
+                        </td>
+                    </tbody>
+                    <!---mi modal formulario-->
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar cargo</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form action="/charges/update" method="post">
+                                                <div class="form-group">
+                                                    <input type="hidden" value="<%=Elemento.id%>" name="idThow">
+                                                    <input type="text" class="form-control" name="nameThow" id="name"
+                                                        required autofocus placeholder="cargo"
+                                                        value="<%=Elemento.name%>">
+                                                    </div>
+                                                <div class="form-control" style="margin-top: 18px;">
+                                                    <textarea name="descriptionThow" class="form-control" id="" rows="6"
+                                                        required placeholder="responsabilidad">
+                                                        <%=Elemento.responsability%>
+                                                    </textarea>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-success" value="Guardar">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <%}));%>
-                </tbody>
-              </table>
+            </table>
         </div>
-    <%}%>    
+    <%}%>
 <%- include('../partials/footer.ejs')%>

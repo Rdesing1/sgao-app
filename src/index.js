@@ -24,7 +24,7 @@ app.use(express.json());
 
 // routes
 app.use(indexRoutes);
-app.use('/api',chargesRoutes);
+app.use(chargesRoutes);
 
 // public
 app.use(express.static(path.join(__dirname,'public')));
