@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs')%>
+    <%if(typeof dataCharges != 'undefined') {%>
+        <div class="container p-5">
+            <table class="table">
+                <thead class="table-light">
+                  <td>#</td>
+                  <td>Nombre del cargo</td>
+                  <td>Responsabilidad</td>
+                  <td>Acciones</td>
+                </thead>
+                <tbody>
+                    <%dataCharges.forEach((Elemento => {%>
+                        <td><%=Elemento.id%></td>
+                        <td><%=Elemento.name%></td>
+                        <td><%=Elemento.responsability%></td>
+                        <td><a href="http://" class="btn btn-danger">Borrar</a><a href="http://" class="btn btn-secondary" style="margin-left: 6px;">Actualizar</a></td></td>
+                    <%}));%>
+                </tbody>
+              </table>
+        </div>
+    <%}%>    
+<%- include('../partials/footer.ejs')%>
