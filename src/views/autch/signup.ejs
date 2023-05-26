@@ -1,0 +1,40 @@
+<%-include('../partials/header.ejs')%>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <img src="/images/logo.png" alt="logo" style="width: 150px;">
+                    </div>
+                    <div class="card-body">
+                        <form action="/signup" method="post">
+                            <div class="form-group p-2">
+                                <input type="email" name="email" id="email" placeholder="email" required autofocus class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" name="fullName" id="fullName" placeholder="Nombre completo" required class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" name="userName" id="userName" placeholder="Nombre de usuario" required class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="typeUser" required>
+                                    <option selected disabled>Selecciona un rol</option>
+                                    <option value="1">Director</option>
+                                    <option value="2">Administrador</option>
+                                    <option value="3">Empleado</option>
+                                </select>
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="password" name="password" id="password" placeholder="Password" required class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="submit" value="Registrar" class="btn btn-primary" style="width: 100%;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%-include('../partials/footer.ejs')%>

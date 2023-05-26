@@ -2,8 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 
+// initialization of routes
 const indexRoutes = require('./routes/index.routes.js');
 const chargesRoutes = require('./routes/charges.routes.js');
+const autchRoutes = require('./routes/auth.routes.js');
+
+
 // initializactions
 const app = express();
 
@@ -25,6 +29,7 @@ app.use(express.json());
 // routes
 app.use(indexRoutes);
 app.use(chargesRoutes);
+app.use(autchRoutes);
 
 // public
 app.use(express.static(path.join(__dirname,'public')));
