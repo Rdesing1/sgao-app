@@ -20,4 +20,17 @@
             </div>
         </div>
     </div>
+    <%if(typeof alert != 'undefined'){%>
+        <script>
+            Swal.fire({
+                title:"<%=alertTitle%>",
+                text:"<%=alertMessage%>",
+                icon:"<%=alertIcon%>",
+                showConfirmButtom:"<%=showConfirmButtom%>",
+                timer:"<%=timer%>"
+            }).then(()=>{
+                window.location ="/<%=ruta%>"
+            })
+        </script>
+    <%}%>    
 <%- include('../partials/footer.ejs')%>

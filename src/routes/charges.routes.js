@@ -27,7 +27,16 @@ router.post('/charges/add/', async (req,res) =>{
     }    
     console.log(dataCharge);
     await pool.query("INSERT INTO charges SET ?",[dataCharge]);
-    res.redirect('/charges');
+    res.render("charges/add.ejs",{
+        titleDocument:"Agregar cargos",
+        alert:true,
+        alertTitle:"Guardar cargo",
+        alertMessage:"Exito al guardar el cargo",
+        alertIcon:"success",
+        showConfirmButtom:false,
+        timer:2500,
+        ruta:"charges/"
+    });
 });    
 
 // ruta para Actualizar los cargos 
@@ -40,14 +49,26 @@ router.post('/charges/update/', async (req,res) =>{
         responsability:textArea
     }
     await pool.query("UPDATE charges SET ? WHERE id=?",[Description,idThow]);
-    res.redirect('/charges');
+    res.render("charges/index.ejs",{
+        alert:true,
+        alertTitle:"Actualizando el cargo",
+        alertHtml:"El cargo se actualizara en: ",
+        timer:2500,
+        ruta:"/charges"
+    });
 });
 
 // ruta para eliminar los cargos 
 router.get('/charges/delete/:id', async (req,res) =>{
     const id = req.params.id;
     await pool.query("DELETE FROM charges WHERE id=?",[id]);
-    res.redirect("/charges");
+    res.render("charges/index.ejs",{
+        alert:true,
+        alertTitle:"Borrar el cargo",
+        alertHtml:"El cargo se borrara en: ",
+        timer:2500,
+        ruta:"/charges"
+    });
 
 });
 

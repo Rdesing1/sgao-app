@@ -42,17 +42,17 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <form action="/charges/update" method="post">
-                                                <div class="form-group">
-                                                    <input type="hidden" value="<%=Elemento.id%>" name="idThow">
+                                                <div class="form-control" style="margin-bottom: 18px;">
+                                                    <input type="number" name="idThow" required class="form-control" autofocus placeholder="Ingrese ID">
+                                                </div>
+                                                <div class="form-control">
                                                     <input type="text" class="form-control" name="nameThow" id="name"
                                                         required autofocus placeholder="cargo"
-                                                        value="<%=Elemento.name%>">
+                                                        value="">
                                                     </div>
                                                 <div class="form-control" style="margin-top: 18px;">
                                                     <textarea name="descriptionThow" class="form-control" id="" rows="6"
-                                                        required placeholder="responsabilidad">
-                                                        <%=Elemento.responsability%>
-                                                    </textarea>
+                                                        required placeholder="responsabilidad"></textarea>
                                                 </div>
                                         </div>
                                     </div>
@@ -70,4 +70,30 @@
             </table>
         </div>
     <%}%>
+<%if(typeof alert != 'undefined') {%>
+    <script>
+        let timerInterval
+        Swal.fire({
+            title: "<%=alertTitle%>",
+            html: "<%=alertHtml%> <b></b> millisegundos.",
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                window.location = "<%=ruta%>"
+            }
+        })
+    </script>
+<%}%>    
 <%- include('../partials/footer.ejs')%>
