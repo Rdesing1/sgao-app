@@ -4,19 +4,19 @@ const pool = require('../database.js');
 const passport = require('passport');
 
 
-router.get('/signup',(req,res)=>{
+router.get('/signup', (req, res) => {
     res.render('autch/signup.ejs');
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
     successRedirect: '/profile',
     failureRedirect: '/signup',
-    
+
 }));
 
-router.get('/profile',(req,res)=>{
+router.get('/profile', (req, res) => {
     res.send({
-        message:'welcome'
+        message: 'welcome'
     })
 })
 module.exports = router;
