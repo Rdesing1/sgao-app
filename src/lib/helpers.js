@@ -7,8 +7,7 @@ const helpers = {
 
     matchPassword: async function(password,savePassword){
         try{
-            await bcrtptjs.compare(password,savePassword);
-            console.log("comparacion ok!");
+           return await bcrtptjs.compare(password,savePassword);
         }catch(e){
             console.log("Ha ocurrido un problema!");
         }

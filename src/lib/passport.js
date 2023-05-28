@@ -4,7 +4,25 @@ const helpers = require('../lib/helpers.js');
 const pool = require("../database.js");
 const bcryptjs = require("bcryptjs");
 
-
+passport.use('local.signin', new LocalStrategy({
+    usernameField: 'name',
+    passwordField: 'password',
+    passReqToCallback: true
+  }, async (req, name, password, done) => {
+    const rows = await pool.query('SELECT * FROM users WHERE name = ?', [name]);
+    if (rows.length > 0) {
+        const user = rows[0];
+        const validPassword = await helpers.matchPassword(password, user.passwords);
+        if (validPassword == true) {
+                done(null, user);
+      } else {
+        done(null, false);
+      }
+    } else {
+      return done(null, false);
+    }
+  }));
+  
 passport.use('local.signup',new LocalStrategy({
     usernameField:'userName',
     passwordField:'password',
