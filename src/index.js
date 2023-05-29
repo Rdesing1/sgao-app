@@ -40,7 +40,10 @@ app.use(passport.session());
 
 
 // globals 
-
+app.use((req,res,next) =>{
+    app.locals.user = req.user;
+    next();
+});
 
 // routes
 app.use(indexRoutes);

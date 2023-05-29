@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../database.js');
-
+const {isLoggedIn} = require('../lib/autch.js');
 // ruta para mostrar los cargos
 
-router.get('/charges', async (req, res) => {
+router.get('/charges',isLoggedIn, async (req, res) => {
     const dataCharges = await pool.query("SELECT * FROM charges");
     console.log(dataCharges);
     res.render('charges/index.ejs', {
@@ -14,12 +14,12 @@ router.get('/charges', async (req, res) => {
 
 // ruta para mostrar el formulario de agg cargo
 
-router.get('/charges/add', (req, res) => {
+router.get('/charges/add', isLoggedIn, (req, res) => {
     res.render('charges/add.ejs');
 });
 
 // ruta para guardar los cargos 
-router.post('/charges/add/', async (req, res) => {
+router.post('/charges/add/',isLoggedIn, async (req, res) => {
     const { name, description } = req.body;
     const dataCharge = {
         name: name,
@@ -40,7 +40,7 @@ router.post('/charges/add/', async (req, res) => {
 });
 
 // ruta para Actualizar los cargos 
-router.post('/charges/update/', async (req, res) => {
+router.post('/charges/update/',isLoggedIn, async (req, res) => {
     const { nameThow, descriptionThow } = req.body;
     let textArea = recorText(descriptionThow);
     let { idThow } = req.body;
@@ -59,7 +59,7 @@ router.post('/charges/update/', async (req, res) => {
 });
 
 // ruta para eliminar los cargos 
-router.get('/charges/delete/:id', async (req, res) => {
+router.get('/charges/delete/:id', isLoggedIn, async (req, res) => {
     const id = req.params.id;
     await pool.query("DELETE FROM charges WHERE id=?", [id]);
     res.render("charges/index.ejs", {
