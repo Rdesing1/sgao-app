@@ -27,9 +27,7 @@ router.post('/signup', passport.authenticate('local.signup', {
 }));
 
 router.get('/profile', (req, res) => {
-    res.send({
-        message: 'welcome'
-    })
+   res.render('admin/index.ejs');
 });
 
 
