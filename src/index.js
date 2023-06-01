@@ -9,9 +9,9 @@ const { dataDB } = require('./keys');
 
 // initialization of routes
 const indexRoutes = require('./routes/index.routes.js');
-const chargesRoutes = require('./routes/charges.routes.js');
 const autchRoutes = require('./routes/auth.routes.js');
-
+const chargesRoutes = require('./routes/charges.routes.js');
+const employessRoutes = require('./routes/employess.routes.js');
 
 
 // initializactions
@@ -47,8 +47,9 @@ app.use((req,res,next) =>{
 
 // routes
 app.use(indexRoutes);
-app.use(chargesRoutes);
 app.use(autchRoutes);
+app.use(chargesRoutes);
+app.use(employessRoutes);
 
 // public
 app.use(express.static(path.join(__dirname, 'public')));
