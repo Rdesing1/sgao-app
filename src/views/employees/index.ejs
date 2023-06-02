@@ -1,0 +1,44 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<!-- component -->
+<%if(typeof dataEmployees != "undefined") { %>
+<div class="md:px-20 py-3 w-full">
+    <div class="shadow overflow-hidden rounded border-b border-gray-200">
+      <table class="min-w-full bg-white">
+        <thead class="bg-blue-800 text-white">
+          <tr>
+            <th class="text-left px-4 uppercase font-semibold text-sm">ID</th>
+            <th class="text-left px-4 uppercase font-semibold text-sm">Cedula</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nombres</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Apellidos</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">#Codigo</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Cargo</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acciones</td>
+          </tr>
+        </thead>
+     
+        <%dataEmployees.forEach((Elemento=> {%>
+            <tbody>
+                <tr>
+                    <td class="text-left px-4"><%=Elemento.id%></td>
+                    <td class="text-left px-4"><%=Elemento.ci%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.names%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.lastNames%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.idUser4%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.name%></td>
+                    <td class="text-left py-3 px-4">
+                        <a href="/employees/delete/<%=Elemento.id%>">Borrar</a>
+                        <a href="/employees/update/<%=Elemento.id%>">Actualizar</a>
+                    </td>
+                  </tr>
+            </tbody>
+
+        <%}));%>
+        
+      </table>
+    </div>
+  </div>
+<%}%>
+<%- include('../admin/partials/footer.ejs')%>

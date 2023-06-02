@@ -25,7 +25,6 @@ router.post('/charges/add/',isLoggedIn, async (req, res) => {
         name: name,
         responsability: description
     }
-    console.log(dataCharge);
     await pool.query("INSERT INTO charges SET ?", [dataCharge]);
     res.render("charges/add.ejs", {
         titleDocument: "Agregar cargos",

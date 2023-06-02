@@ -1,0 +1,47 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+
+<script src="/js/talwin.js"></script>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8">
+    <form action="/employees/add" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Nombres</label>
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          type="text" id="Nombres" name="names" placeholder="Kevin Ernesto" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="Apellidos">Apellidos</label>
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          type="text" id="text" name="lastNames" placeholder="rojas suarez"required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="cedula">Cedula</label>
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          type="text" id="ci" name="ci" required placeholder="21.354.093">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="codigo">Codigo de usuario</label>
+        <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          type="number" id="codigo" name="codigo" placeholder="ejemplo: 127">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Cargo</label>
+        <select id="idCharge4" name="cargo" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected disabled>Seleccionar cargo</option>
+            <option value="1">Director</option>
+            <option value="2">Administrador</option>
+            <option value="45">Empleado</option>
+        </select>
+      </div>
+      <input
+        class="w-full bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300"
+        type="submit" value="Registrar">
+      </input>
+    </form>
+  </div>
+</body>
+</div>
+<%- include('../admin/partials/footer.ejs')%>
