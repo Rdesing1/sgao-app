@@ -12,7 +12,7 @@ const indexRoutes = require('./routes/index.routes.js');
 const autchRoutes = require('./routes/auth.routes.js');
 const chargesRoutes = require('./routes/charges.routes.js');
 const employessRoutes = require('./routes/employess.routes.js');
-
+const coreRoutes = require("./routes/core.routes.js");
 
 // initializactions
 const app = express();
@@ -50,7 +50,7 @@ app.use(indexRoutes);
 app.use(autchRoutes);
 app.use(chargesRoutes);
 app.use(employessRoutes);
-
+app.use(coreRoutes);
 // public
 app.use(express.static(path.join(__dirname, 'public')));
 

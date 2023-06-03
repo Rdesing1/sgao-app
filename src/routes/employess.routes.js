@@ -4,7 +4,7 @@ const pool = require('../database.js');
 const {isLoggedIn} = require('../lib/autch.js');
 
 // get all employess
-router.get('/employees',isLoggedIn,async(req,res) => {
+router.get('/employees',isLoggedIn,async(req,res) =>{
     const dataEmployees = await pool.query("SELECT id, ci,names,lastNames,idUser4,idCharge4,charges.name FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge");
     // res.json({dataEmployees});
         res.render("employees/index.ejs",{
@@ -13,7 +13,7 @@ router.get('/employees',isLoggedIn,async(req,res) => {
 });
 
 // save employees
-router.get('/employees/add',isLoggedIn,async(req,res) => {
+router.get('/employees/add',isLoggedIn,async(req,res) =>{
     res.render("employees/add.ejs");
 });
 
