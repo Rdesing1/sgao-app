@@ -56,22 +56,32 @@ router.post("/employees/add",isLoggedIn, async (req,res) =>{
 // update employees vista
 router.get('/employees/update/:id',isLoggedIn,async (req,res) =>{
     let id = req.params.id;
-    const employees = await pool.query("SELECT id, ci,names,lastNames,idUser4,idCharge4,charges.name FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge WHERE employees.id =?",[id]);
-    res.render("employees/update.ejs",{
-        data:employees[0]
+    try {
+        const employees = await pool.query("SELECT id, ci,names,lastNames,idUser4,idCharge4,charges.name,core.name as nombre_nucle FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge INNER JOIN core ON employees.idCore4=core.id__Core WHERE employees.id = ?",[id]);
+        const dataCharges = await pool.query("SELECT idcharge,name FROM charges");
+        const cores = await pool.query("SELECT id__Core, name FROM core");
+        res.render("employees/update.ejs",{
+            data:employees[0],
+            charges:dataCharges,
+            core:cores
+
     })
+    } catch (error) {
+        
+    }
 });
 
-// update employees vista
+// update employees save
 router.post('/employees/update/:id',isLoggedIn, async (req,res) =>{
     const id = req.params.id;
-    const {ci,names,lastNames,idUser4,idCharge4} = req.body;
+    const {ci,names,lastNames,idUser4,idCharge4,idCore4} = req.body;
     const newEmployees = {
         ci:ci,
         names:names,
         lastNames:lastNames,
         idUser4:idUser4,
-        idCharge4:idCharge4
+        idCharge4:idCharge4,
+        idCore4:idCore4
     }
     try{
         const newData = await pool.query("UPDATE employees SET ? WHERE id=?",[newEmployees,id]);

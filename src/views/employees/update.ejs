@@ -33,13 +33,26 @@
                     type="number" id="codigo" name="idUser4" value="<%=data.idUser4%>">
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Cargo</label>
-                  <select id="idCharge4" name="idCharge4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option selected value="45"><%=data.name%></option>
-                      <option value="1">Director</option>
-                      <option value="2">Administrador</option>
-                      <option value="45">Empleado</option>
+                  <%if(typeof charges != 'undefined'){%>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Cargo</label>
+                    <select id="idCharge4" name="idCharge4" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected disabled>Seleccionar cargo</option>
+                      <%charges.forEach((item => {%>
+                        <option value="<%=item.idcharge%>"><%=item.name%></option>
+                      <%}));%>
+                    </select>
+                  <%}%>
+                </div>
+                <div class="mb-4">
+                  <%if(typeof core != 'undefined'){%>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Nucleo</label>
+                    <select id="idCore4" name="idCore4" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected disabled>Seleccionar nucleo</option>
+                      <%core.forEach((Elemento=> {%>
+                          <option value="<%=Elemento.id__Core%>"><%=Elemento.name%></option>
+                      <%}));%>
                   </select>
+                  <%}%>
                 </div>
                 <input
                   class="w-full bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition duration-300"
