@@ -14,18 +14,29 @@ router.get('/employees',isLoggedIn,async(req,res) =>{
 
 // save employees
 router.get('/employees/add',isLoggedIn,async(req,res) =>{
-    res.render("employees/add.ejs");
+    try {
+        const dataCharges = await pool.query("SELECT idcharge,name FROM charges");
+        const cores = await pool.query("SELECT id__Core, name FROM core");
+        res.render("employees/add.ejs",{
+            charges:dataCharges,
+            core:cores
+        });
+    } catch (err) {
+        res.json({message:"ha ocurrido un problema.",err});
+    }
+    
 });
 
 
 router.post("/employees/add",isLoggedIn, async (req,res) =>{
-    const {ci,names,lastNames,codigo,cargo} = req.body;
+    const {ci,names,lastNames,codigo,cargo,idCore4} = req.body;
     const dataEmployees = {
         ci:ci,
         names:names,
         lastNames:lastNames,
         idUser4:codigo,
         idCharge4:cargo,
+        idCore4:idCore4 	 	
     }
     try{
         const result = await pool.query("INSERT INTO employees SET ?",[dataEmployees]);
