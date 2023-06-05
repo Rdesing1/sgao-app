@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database.js');
 const {isLoggedIn} = require('../lib/autch.js');
+
 // ruta para mostrar los cargos
 
 router.get('/charges',isLoggedIn, async (req, res) => {

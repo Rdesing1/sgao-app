@@ -13,6 +13,8 @@ const autchRoutes = require('./routes/auth.routes.js');
 const chargesRoutes = require('./routes/charges.routes.js');
 const employessRoutes = require('./routes/employess.routes.js');
 const coreRoutes = require("./routes/core.routes.js");
+const circuitRoutes = require("./routes/circuit.routes.js");
+const assingRoutes = require("./routes/assign.routes.js");
 
 // initializactions
 const app = express();
@@ -51,6 +53,8 @@ app.use(autchRoutes);
 app.use(chargesRoutes);
 app.use(employessRoutes);
 app.use(coreRoutes);
+app.use(circuitRoutes);
+app.use(assingRoutes);
 // public
 app.use(express.static(path.join(__dirname, 'public')));
 
