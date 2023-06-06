@@ -15,7 +15,7 @@
                       <select name="employees" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded" id="grid-state">
                           <option selected disabled>Empleado</option>
                           <%employees.forEach((item => {%>
-                              <option value="<%=item.names%>"><%=item.id%> : <%=item.names%></option>
+                              <option value="<%=item.id%>"><%=item.id%> | <%=item.name%> | <%=item.role%></option>
                           <%}));%>
                       </select>
                   <%}%>
@@ -76,3 +76,17 @@
     </div>
 </div>
 <%- include('../admin/partials/footer.ejs')%>
+
+<%if(typeof alert != 'undefined'){%>
+  <script>
+      Swal.fire({
+          title:"<%=alertTitle%>",
+          text:"<%=alertMessage%>",
+          icon:"<%=alertIcon%>",
+          showConfirmButtom:"<%=showConfirmButtom%>",
+          timer:"<%=timer%>"
+      }).then(()=>{
+          window.location ="/<%=ruta%>"
+      })
+  </script>
+<%}%>    

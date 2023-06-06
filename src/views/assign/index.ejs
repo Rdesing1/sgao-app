@@ -1,0 +1,72 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<!-- component -->
+<%if(typeof  assign != "undefined") { %>
+<div class="md:px-20 py-3 w-full">
+    <div class="shadow overflow-hidden rounded border-b border-gray-200">
+      <table class="min-w-full bg-white">
+        <thead class="bg-blue-800 text-white">
+          <tr>
+            <th class="text-left px-4 uppercase font-semibold text-sm">ID</th>
+            <th class="text-left px-4 uppercase font-semibold text-sm">usuario</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Circuito</th>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">fecha</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Entrada</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Salida</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Id circuito</td>
+                <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acciones</td>
+          </tr>
+        </thead>
+     
+        <%assign.forEach((Elemento=> {%>
+            <tbody>
+                <tr>
+                    <td class="text-left px-4"><%=Elemento.id%></td>
+                    <td class="text-left px-4 text-center"><%=Elemento.idUser11%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.nameCircuit%></td>
+                    <td class="text-left py-3 px-4"><%=new Date(Elemento.dates).toDateString()%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.entrance%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.exits%></td>
+                    <td class="text-left py-3 px-4 text-center"><%=Elemento.idCircuit%></td>
+                    <td class="text-left py-3 px-4">
+                        <a class="btn bg-red-600 text-white" href="/assign/delete/<%=Elemento.id%>">Borrar</a>
+                        <a class="btn bg-blue-600 text-white" href="/assign/update/<%=Elemento.id%>">Actualizar</a>
+                    </td>
+                  </tr>
+            </tbody>
+
+        <%}));%>
+        
+      </table>
+    </div>
+  </div>
+<%}%>
+<%- include('../admin/partials/footer.ejs')%>
+<%if(typeof alert != 'undefined') {%>
+    <script>
+        let timerInterval
+        Swal.fire({
+            title: "<%=alertTitle%>",
+            html: "<%=alertHtml%> <b></b> millisegundos.",
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                window.location = "<%=ruta%>"
+            }
+        })
+    </script>
+<%}%>    
