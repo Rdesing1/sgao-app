@@ -6,6 +6,7 @@ const {isLoggedIn} = require('../lib/autch.js');
 
 // get assign
 router.get('/assign',async (req,res) =>{
+    
     try{
         let result = await pool.query("SELECT * FROM assignemployee");
         if(result.length > 0){
