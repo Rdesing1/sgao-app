@@ -61,7 +61,7 @@ router.post('/charges/update/',isLoggedIn, async (req, res) => {
 // ruta para eliminar los cargos 
 router.get('/charges/delete/:id', isLoggedIn, async (req, res) => {
     const id = req.params.id;
-    await pool.query("DELETE FROM charges WHERE id=?", [id]);
+    await pool.query("DELETE FROM charges WHERE idcharge=?", [id]);
     res.render("charges/index.ejs", {
         alert: true,
         alertTitle: "Borrar el cargo",

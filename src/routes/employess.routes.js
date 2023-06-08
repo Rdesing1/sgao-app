@@ -5,7 +5,7 @@ const {isLoggedIn} = require('../lib/autch.js');
 
 // get all employess
 router.get('/employees',isLoggedIn,async(req,res) =>{
-    const dataEmployees = await pool.query("SELECT id, ci,names,lastNames,idUser4,idCharge4,charges.name FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge");
+    const dataEmployees = await pool.query("SELECT id,ci,names,lastNames,idUser4,idCharge4,charges.name as charges_name ,core.name as core_name FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge INNER JOIN core ON employees.idCore4=core.id__Core");
     // res.json({dataEmployees});
         res.render("employees/index.ejs",{
             dataEmployees

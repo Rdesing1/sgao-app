@@ -39,82 +39,32 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
   </ul>
 
   <ul>
-   
-
-    <li class="relative px-6 py-3">
-      <button
-        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-        @click="togglePagesMenu"
-        aria-haspopup="true"
-        cargos="true"
-      >
-        <span class="inline-flex items-center">
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-            ></path>
-          </svg>
-          <span class="ml-4">cargos</span>
-        </span>
-        <svg
-          class="w-4 h-4"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </button>
-      <template x-if="isPagesMenuOpen">
-        <ul
-          x-transition:enter="transition-all ease-in-out duration-300"
-          x-transition:enter-start="opacity-25 max-h-0"
-          x-transition:enter-end="opacity-100 max-h-xl"
-          x-transition:leave="transition-all ease-in-out duration-300"
-          x-transition:leave-start="opacity-100 max-h-xl"
-          x-transition:leave-end="opacity-0 max-h-0"
-          class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-          aria-label="submenu"
-        >
-          <li
-            class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-          >
-            <a class="w-full" href="/charges">Cargos</a>
-          </li>
-          <li
-            class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-          >
-    
-          <a class="w-full" href="/charges/add">Agregar</a>
-          </li>
-          <li
-            class="px-2 py-1 display-flex center transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-          >
-          <button class="btn btn-primary large" data-bs-toggle="modal"
-          data-bs-target="#exampleModal"><a class="w-full" href="#">Actualiazar</a></button>
-          </li>
-        </ul>
-      </template>
-    </li>
-
-    <li class="relative px-6 py-3">
+    <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">Empleados</label>
+    <li class="relative px-6 py-3 hover:bg-blue-800 hover:text-white">
       <a
-        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-        href="/charges"
-      >
+      class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white dark:hover:text-gray-200"
+      href="/employees">ver empleados</a>
+    </li>  
+    <li class="relative px-6 py-3 hover:bg-blue-800 hover:text-white">
+      <a
+      class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white dark:hover:text-gray-200"
+      href="/employees/add">Agregar Empleado</a>
+    </li>  
+
+    <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">Cargos</label>
+    <li class="relative px-6 py-3 hover:bg-blue-800 hover:text-white">
+      <a
+      class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white dark:hover:text-gray-200"
+      href="/charges">ver cargos</a>
+    </li>  
+    <li class="relative px-6 py-3 hover:bg-blue-800 hover:text-white">
+      <a
+      class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-white dark:hover:text-gray-200"
+      href="/charges/add">Agregar cargo</a>
+    </li>  
+
+    <li class="relative px-6 py-3">
+    
         <svg
           class="w-5 h-5"
           aria-hidden="true"
@@ -133,10 +83,7 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
       </a>
     </li>
     <li class="relative px-6 py-3">
-      <a
-        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-        href="charts.html"
-      >
+     
         <svg
           class="w-5 h-5"
           aria-hidden="true"
@@ -318,3 +265,51 @@ class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-
 <%if(user.typeUser === 1){%>
   welcome empleado.
 <%}%>
+
+
+<style>
+  /* Dropdown Button */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+</style>

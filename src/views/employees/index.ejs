@@ -13,7 +13,7 @@
             <th class="text-left px-4 uppercase font-semibold text-sm">Cedula</th>
             <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nombres</th>
             <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Apellidos</td>
-            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">#Codigo</td>
+            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nucleo</td>
             <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Cargo</td>
             <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acciones</td>
           </tr>
@@ -26,11 +26,11 @@
                     <td class="text-left px-4"><%=Elemento.ci%></td>
                     <td class="text-left py-3 px-4"><%=Elemento.names%></td>
                     <td class="text-left py-3 px-4"><%=Elemento.lastNames%></td>
-                    <td class="text-left py-3 px-4"><%=Elemento.idUser4%></td>
-                    <td class="text-left py-3 px-4"><%=Elemento.name%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.core_name%></td>
+                    <td class="text-left py-3 px-4"><%=Elemento.charges_name%></td>
                     <td class="text-left py-3 px-4">
-                        <a href="/employees/delete/<%=Elemento.id%>">Borrar</a>
-                        <a href="/employees/update/<%=Elemento.id%>">Actualizar</a>
+                      <a href="/employees/update/<%=Elemento.id%>" class="btn bg-blue-600 hover:bg-blue-800 text-white"><i class="pr-1 fi-sr-replace"></i>Actualizar</a>
+                      <a href="/employees/delete/<%=Elemento.id%>" class="btn bg-red-600 hover:bg-red-800 text-white"><i class="pr-1 fi-sr-circle-trash"></i> Borrar</a>
                     </td>
                   </tr>
             </tbody>
