@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database.js');
 const {isLoggedIn} = require('../lib/autch.js');
+const { jsPDF } = require("jspdf"); 
+const fs = require('fs');
+const path = require('path');
+const moments = require('moment');
 
 // get all employess
 router.get('/employees',isLoggedIn,async(req,res) =>{
@@ -10,6 +14,78 @@ router.get('/employees',isLoggedIn,async(req,res) =>{
         res.render("employees/index.ejs",{
             dataEmployees
         });
+});
+
+// get pdf
+router.get('/employess/generate-pdf', async (req,res) => {
+    let employees = [];
+    const data = {};
+    const dataEmployees = await pool.query("SELECT id,ci,names,lastNames,idUser4,idCharge4,charges.name as charges_name ,core.name as core_name FROM employees INNER JOIN charges ON employees.idCharge4=charges.idcharge INNER JOIN core ON employees.idCore4=core.id__Core");
+    employees = dataEmployees;
+    
+   function generateData(){
+        let result = [];
+
+        for(let i=0; i<employees.length; i++){
+
+                result.push(Object.assign({}, {
+                ID: String(employees[i].id),
+                Nombres: String(employees[i].names),
+                Apellidos: String(employees[i].lastNames),
+                Usuario: String(employees[i].idUser4),
+                Cargo: String(employees[i].charges_name),
+                Nucleo: String(employees[i].core_name),
+
+             }));
+        }
+        return result;
+   }
+
+   let headers =[
+    "ID",
+    "Nombres",
+    "Apellidos",
+    "Usuario",
+    "Cargo",
+    "Nucleo"
+
+];
+
+    // console.table(generateData());
+    let image = fs.readFileSync('./unerg.png').toString('base64'); 
+    let doc = new jsPDF('p', 'pt', 'a4');
+				doc.addImage(image, 'png', 70, 80, 100, 50);
+				
+				moments.locale('es-do');
+				doc.setFontSize(10);
+				doc.text(moments().format('LLLL'), 20, 20);
+
+				doc.setFontSize(10);
+				doc.text("ESTANTERIAS EL SOL C.A", 230, 102);
+
+				doc.setFontSize(10);
+				doc.text("RIF:j-07554653-9", 250, 128);
+
+				doc.setFontSize(12);
+                console.log(doc.getFontList());
+				doc.setFont("Times", "bold");
+				doc.text("REPORTE DE INVENTARIO DEL MODULO DE LAMINAS", 4, 210);
+
+				doc.table(4, 230, generateData(), headers, {
+					left:300,
+					top:0,
+					right:300,
+					bottom: 0,
+					width: 2000,
+					});
+
+								
+				if(!fs.existsSync('./export_pdf'))
+					fs.mkdirSync('./export_pdf');
+
+				doc.save( path.join('./export_pdf/', Date.now().toString() +'-reporte.pdf'));
+
+
 });
 
 // save employees

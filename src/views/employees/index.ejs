@@ -5,6 +5,7 @@
 <!-- component -->
 <%if(typeof dataEmployees != "undefined") { %>
 <div class="md:px-20 py-3 w-full">
+  <a href="/employess/generate-pdf" class="btn bg-red-800 text-white mb-3 drop-shadow-xl hover:bg-red-600"></i> generar pdf <i class="fi-sr-file-pdf"></i></a>
     <div class="shadow overflow-hidden rounded border-b border-gray-200">
       <table class="min-w-full bg-white">
         <thead class="bg-blue-800 text-white">
@@ -26,7 +27,7 @@
                     <td class="text-left px-4"><%=Elemento.ci%></td>
                     <td class="text-left py-3 px-4"><%=Elemento.names%></td>
                     <td class="text-left py-3 px-4"><%=Elemento.lastNames%></td>
-                    <td class="text-left py-3 px-4"><%=Elemento.core_name%></td>
+                    <td class="text-left py-3 px-4"><p class="bg-blue-600 text-center text-white rounded-full py-1"><%=Elemento.core_name%></p></td>
                     <td class="text-left py-3 px-4"><%=Elemento.charges_name%></td>
                     <td class="text-left py-3 px-4">
                       <a href="/employees/update/<%=Elemento.id%>" class="btn bg-blue-600 hover:bg-blue-800 text-white"><i class="pr-1 fi-sr-replace"></i>Actualizar</a>
@@ -36,9 +37,12 @@
             </tbody>
 
         <%}));%>
-        
+     
       </table>
     </div>
   </div>
 <%}%>
+
+
+
 <%- include('../admin/partials/footer.ejs')%>
