@@ -79,11 +79,19 @@ router.get('/employess/generate-pdf', async (req,res) => {
 					width: 2000,
 					});
 
-								
-				if(!fs.existsSync('./export_pdf'))
-					fs.mkdirSync('./export_pdf');
+					console.log();			
+				 if(!fs.existsSync(path.join('src','public','documents','employees')))
 
-				doc.save( path.join('./export_pdf/', Date.now().toString() +'-reporte.pdf'));
+					fs.mkdir(path.join('src','public','documents','employees'), (err)=>{
+                        if(err){
+                            return console.error(err);
+                        }
+                        console.log('creado satisfactoriamente!');
+                        
+
+                    })
+
+				 doc.save( path.join('src','public','documents','employees', Date.now().toString() +'-reporte.pdf'));
 
 
 });
