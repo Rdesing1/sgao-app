@@ -61,15 +61,15 @@ router.get('/employess/generate-pdf', async (req,res) => {
 				doc.text(moments().format('LLLL'), 20, 20);
 
 				doc.setFontSize(10);
-				doc.text("ESTANTERIAS EL SOL C.A", 230, 102);
+				doc.text("DIRECCION DE SEGURIDAD DE LA UNERG:", 230, 102);
 
 				doc.setFontSize(10);
-				doc.text("RIF:j-07554653-9", 250, 128);
+				doc.text("RIF:j-000000-000", 250, 128);
 
 				doc.setFontSize(12);
                 console.log(doc.getFontList());
 				doc.setFont("Times", "bold");
-				doc.text("REPORTE DE INVENTARIO DEL MODULO DE LAMINAS", 4, 210);
+				doc.text("REPORTE DE EMPLEADOS ACTUALES", 4, 210);
 
 				doc.table(4, 230, generateData(), headers, {
 					left:300,
@@ -90,8 +90,8 @@ router.get('/employess/generate-pdf', async (req,res) => {
                         
 
                     })
-
-				 doc.save( path.join('src','public','documents','employees', Date.now().toString() +'-reporte.pdf'));
+                 doc.
+				 doc.save(path.join('src','public','documents','employees', Date.now().toString() +'-reporte.pdf'));
 
 
 });

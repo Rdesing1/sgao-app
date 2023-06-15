@@ -334,22 +334,6 @@
             <ul class="flex items-center flex-shrink-0 space-x-6">
               <!-- Theme toggler -->
               <li class="flex">
-                <button
-                  class="rounded-md focus:outline-none focus:shadow-outline-purple"
-                  @click="toggleTheme"
-                  aria-label="Toggle color mode"
-                >
-                  <template x-if="!dark">
-                    <svg
-                      class="w-5 h-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-                      ></path>
-                    </svg>
                   </template>
                   <template x-if="dark">
                     <svg
@@ -439,7 +423,7 @@
                 </template>
               </li>
               <!-- Profile menu -->  
-              <h5><%=user.fullName%></h5>
+              <h5><p class="bg-purple-600 text-white rounded-lg p-2"><%=user.fullName%></p></h5>
               <li class="relative">
                 <button
                   class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
