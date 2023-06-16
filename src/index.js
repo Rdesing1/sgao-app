@@ -16,6 +16,9 @@ const coreRoutes = require("./routes/core.routes.js");
 const circuitRoutes = require("./routes/circuit.routes.js");
 const assingRoutes = require("./routes/assign.routes.js");
 
+// initialization of routes the vigilants
+const assignedRoutes = require('./routes/assignedOrder.routes.js');
+
 // initializactions
 const app = express();
 require('./lib/passport.js');
@@ -55,6 +58,9 @@ app.use(employessRoutes);
 app.use(coreRoutes);
 app.use(circuitRoutes);
 app.use(assingRoutes);
+
+// routes of level 3 
+app.use(assignedRoutes);
 // public
 app.use(express.static(path.join(__dirname, 'public')));
 
