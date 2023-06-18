@@ -5,7 +5,16 @@
 <!-- component -->
 <%if(typeof dataEmployees != "undefined") { %>
 <div class="md:px-20 py-3 w-full">
-  <a href="/employess/generate-pdf" class="btn bg-red-800 text-white mb-3 drop-shadow-xl hover:bg-red-600"></i> generar pdf <i class="fi-sr-file-pdf"></i></a>
+  <div class="flex items-center ">                     
+    <a href="/employess/generate-pdf" class="btn bg-red-800 text-white mb-3 drop-shadow-xl hover:bg-red-600"></i> generar pdf <i class="fi-sr-file-pdf"></i></a> 
+    <%if(typeof name != 'undefined') { %>
+        <a href="/documents/employees/<%=name%>" target="_blank" class="btn ml-1 drop-shadow-xl bg-green-800 mb-3 text-white hover:bg-green-600"></i>visualizar pdf<i class="fi-sr-file-pdf"></i></a>
+    <%}else{ %>
+      <a class="btn text-white bg-gray-600 mb-3 drop-shadow-xl ml-1">Aun no has creado un documento</a>
+    <%}%> 
+  </div>      
+  
+  
     <div class="shadow overflow-hidden rounded border-b border-gray-200">
       <table class="min-w-full bg-white">
         <thead class="bg-blue-800 text-white">
@@ -43,3 +52,30 @@
   </div>
 <%}%>
 <%- include('../admin/partials/footer.ejs')%>
+
+<%if(typeof alert != 'undefined') {%>
+  <script>
+      let timerInterval
+      Swal.fire({
+          title: "<%=alertTitle%>",
+          html: "<%=alertHtml%> <b></b> millisegundos.",
+          timer: 2500,
+          timerProgressBar: true,
+          didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+              }, 100)
+          },
+          willClose: () => {
+              clearInterval(timerInterval)
+          }
+          }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+              window.location = "<%=ruta%>"
+          }
+      })
+  </script>
+<%}%>   

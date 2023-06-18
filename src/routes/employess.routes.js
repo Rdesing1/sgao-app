@@ -90,9 +90,19 @@ router.get('/employess/generate-pdf', async (req,res) => {
                         
 
                     })
-                 doc.
-				 doc.save(path.join('src','public','documents','employees', Date.now().toString() +'-reporte.pdf'));
+                 let namePdf = Date.now().toString() +'-reporte.pdf';
+				 doc.save(path.join('src','public','documents','employees', namePdf));
 
+                 res.render('employees/index.ejs',{
+                    dataEmployees,
+                    name:namePdf,
+                    alert: true,
+                    alertTitle: "Creando pdf",
+                    alertHtml: "El pdf se creara en: ",
+                    timer: 2500,
+                    ruta: "#"
+            
+                 })
 
 });
 
