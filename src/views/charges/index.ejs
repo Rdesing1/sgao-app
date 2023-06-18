@@ -60,4 +60,18 @@
     </script>
 <%}%>    
 
+<%if(typeof alertThow != 'undefined'){%>
+    <script>
+        Swal.fire({
+            title:"<%=alertTitle%>",
+            text:"<%=alertMessage%>",
+            icon:"<%=alertIcon%>",
+            showConfirmButtom:"<%=showConfirmButtom%>",
+            timer:"<%=timer%>"
+        }).then(()=>{
+            window.location ="/<%=ruta%>"
+        });
+    </script>
+<%}%>   
+
 
