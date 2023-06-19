@@ -1,0 +1,50 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8">
+    <form action="/core/update/<%=data.id__Core%>" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Identificador</label>
+          <input reuired class="w-full px-3 py-2 border focus:outline-purple-300 border-gray-300 rounded-md"
+            type="number" id="id__Core" name="id__Core" placeholder="ejemplo: Empleado de seguridad"value="<%=data.id__Core%>" disabled>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Circuito:</label>
+            <input reuired class="w-full px-3 py-2 border focus:outline-purple-300 border-gray-300 rounded-md"
+            type="text" id="name" name="name" placeholder="ejemplo: Informatica "value="<%=data.name%>">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Circuito:</label>
+          <textarea required id="location" name="location" class="w-full rounded-md focus:outline-purple-300  px-3 resize-none focus:border-green-400 py-2 border border-gray-300" required id="location" cols="30" rows="10"><%=data.location%></textarea>
+      </div>
+      <input
+        class="w-full bg-green-600 hover:bg-green-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300"
+        type="submit" value="Registrar cargo">
+      </input>
+    </form>
+  </div>
+</body>
+</div>
+
+<%- include('../admin/partials/footer.ejs')%>
+<%if(typeof alert != 'undefined'){%>
+        <script>
+            Swal.fire({
+                title:"<%=alertTitle%>",
+                text:"<%=alertMessage%>",
+                icon:"<%=alertIcon%>",
+                showConfirmButtom:"<%=showConfirmButtom%>",
+                timer:"<%=timer%>"
+            }).then(()=>{
+                window.location ="/<%=ruta%>"
+            });
+
+        </script>
+<%}%>    
+<style>
+    #area:focus{
+        outline:none
+    }
+</style>

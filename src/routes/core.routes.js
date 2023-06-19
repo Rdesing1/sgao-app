@@ -5,12 +5,14 @@ const {isLoggedIn} = require('../lib/autch.js');
 
 
 // get all core
-router.get('/core', async (req,res) =>{
+router.get('/core', isLoggedIn ,async (req,res) =>{
     try{
-        let cores = await pool.query("SELECT * FROM core");
+        let cores = [];
+        let result = await pool.query("SELECT * FROM core");
+        cores = result;
+
         if(cores.length > 0){
-            res.json({
-                message:"se han encontrado los cores",
+            res.render('cores/index.ejs',{
                 data:cores
             });
         }else{
@@ -22,7 +24,7 @@ router.get('/core', async (req,res) =>{
 });
 
 // get core
-router.get('/core/:id', async (req,res) =>{
+router.get('/core/search/:id', async (req,res) =>{
     let id = req.params.id;
     try{
         let result = await pool.query("SELECT * FROM core WHERE id__Core = ?",[id]);
@@ -39,8 +41,15 @@ router.get('/core/:id', async (req,res) =>{
     }
 });
 
+
+// add core get
+router.get('/core/add',(req,res) =>{
+    res.render('cores/add.ejs');
+});
+
+
 // add new core 
-router.post('/core/add',async (req,res)=>{
+router.post('/core/add', async (req,res)=>{
     const {name,location} = req.body;
     const coreData = {
         name:name,
@@ -49,15 +58,70 @@ router.post('/core/add',async (req,res)=>{
     try{
         let result = await pool.query("INSERT INTO core SET ?",[coreData]);
         if(result.affectedRows === 1){
-            res.json({result});
-        }else{
-            res.json({message:"err al registrar los valores enviados desde el formulario."});
+            res.render("cores/index.ejs", {
+                alertThow: true,
+                titleDocument: `Agreando nuevo Nucleo.`,
+                alertTitle: "Success",
+                alertMessage: "Nuecleo creado.",
+                alertIcon: "Success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "core/"
+            });
+            
         }
        
     }catch(err){
-        res.json({message:err});
+        res.render("cores/index.ejs", {
+            alertThow: true,
+            titleDocument: `Error.`,
+            alertTitle: `contacte al programador`,
+            alertMessage: `${err}`,
+            alertIcon: "error",
+            showConfirmButtom: false,
+            timer: 2500,
+            ruta: "core/"
+        });
     } 
 
+});
+
+
+//get and update core:
+router.get('/core/update/:id', isLoggedIn , async (req,res) =>{
+    let id = req.params.id;
+    try{
+        let cores = [];
+        const result = await pool.query('SELECT * FROM core WHERE id__Core = ?',[id]);
+        cores = result;
+        if(cores.length > 0){
+            res.render('cores/update.ejs',{
+                data:cores[0]
+            });
+        }else{
+            res.render("cores/index.ejs", {
+                alertThow: true,
+                titleDocument: `Actualizar el Nucleo, numero ${id}`,
+                alertTitle: "Error",
+                alertMessage: "Nuecleo no encontrado.",
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "core/"
+            });
+        }
+    }catch(err){
+        res.render("cores/index.ejs", {
+            alertThow: true,
+            titleDocument: `Actualizar el Nucleo, numero ${id}`,
+            alertTitle: "Error",
+            alertMessage: `contacte con el programador, error: ${err}`,
+            alertIcon: "error",
+            showConfirmButtom: false,
+            timer: 2500,
+            ruta: "core/"
+        });
+    }
 });
 
 // update core
@@ -70,11 +134,43 @@ router.post('/core/update/:id',async (req,res) => {
     }
     try{
         let result = await pool.query("UPDATE core SET ? WHERE id__Core = ?",[dataCore,id]);
-        res.json({message:"registro actualizado correctamente."});
+        if(result.affectedRows === 1){
+            res.render("cores/index.ejs", {
+                alertThow: true,
+                titleDocument: `Actualizar el Nucleo, numero ${id}`,
+                alertTitle: "Success",
+                alertMessage: `Nucleo numero ${id}, Actualizado`,
+                alertIcon: "success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "core/"
+            });
+        }else{
+            res.render("cores/index.ejs", {
+                alertThow: true,
+                titleDocument: `Nucleo no encontrado`,
+                alertTitle: "Error",
+                alertMessage: `Nucleo numero ${id}, no encontrado o no existe`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "core/"
+            });
+        }
     }catch(err){
-        res.json({message:"error al actualizar.", err});
+        res.render("cores/index.ejs", {
+            alertThow: true,
+            titleDocument: `Actualizar el Nucleo, numero ${id}`,
+            alertTitle: "Error",
+            alertMessage: `contacte con el programador, error: ${err}`,
+            alertIcon: "error",
+            showConfirmButtom: false,
+            timer: 2500,
+            ruta: "core/"
+        });
     }
 });
+
 
 // delete core
 
@@ -83,13 +179,30 @@ router.get('/core/delete/:id', async (req,res) =>{
     try{
         let result = await pool.query("DELETE FROM core WHERE id__Core = ?",[id]);//DELETE FROM charges WHERE id=?", [id]
         if(result.affectedRows === 1){
-            res.json({message:"core eliminado correctamente"});
+            res.render('cores/index.ejs',{
+                alert: true,
+                alertTitle: `Borrado el nucleo Numero: ${id}`,
+                alertHtml: "El Nucleo se borrara en: ",
+                timer: 2500,
+                ruta: "/core"
+        
+             })
         }else{
             res.json({message:"el core no se ha podido eliminar"});
         }
     }catch(err){
-        res.json({message:"Ha ocurrido un problema.", err});
-    }
+        res.render("cores/index.ejs", {
+            alertThow: true,
+            titleDocument: `Error.`,
+            alertTitle: `No puedes borrar un nucleo al que pertenezca un empleado.`,
+            alertMessage: `actualiza o crea un nuevo nucleo`,
+            alertIcon: "warning",
+            showConfirmButtom: false,
+            timer: 4500,
+            ruta: "core/"
+        });
+    } 
+    
 });
 
 

@@ -39,7 +39,7 @@ router.post('/charges/add/',isLoggedIn, async (req, res) => {
     });
 });
 
-router.get('/charges/update/:id', async (req,res) =>{
+router.get('/charges/update/:id', isLoggedIn ,async (req,res) =>{
     let id = req.params.id;
     let {name,description} =  req.body;
     objCharge = {
