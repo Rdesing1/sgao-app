@@ -134,7 +134,7 @@ router.get('/assign/add', async (req,res) =>{
 });
 
 
-
+// agg new assign
 router.post('/assign/add',async (req,res) =>{
     let {employees,circuit,dates,entrance,exits,idCircuit} = req.body;
     let dataAssing = {
