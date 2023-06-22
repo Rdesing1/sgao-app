@@ -8,12 +8,16 @@ const { dataDB } = require('../keys.js');
 router.get('/designations',async (req,res) =>{
     try{
         let designations = [];
-        let result = await pool.query('SELECT estate,description,circuit.id,circuit.name as circuit,users.fullName as evaluador FROM designation INNER JOIN circuit ON circuit.id=designation.idCircuit2 INNER JOIN assignemployee ON circuit.id=assignemployee.idCircuit INNER JOIN users_assignemployee ON assignemployee.id=users_assignemployee.idAssignemployee1 INNER JOIN users ON users_assignemployee.idUser7=users.id');
+        let result = await pool.query('SELECT designation.id as id,designation.estate,designation.description,circuit.name as circuit,users.fullName as evaluador FROM designation INNER JOIN circuit ON circuit.id=designation.idCircuit2 INNER JOIN assignemployee ON circuit.id=assignemployee.idCircuit INNER JOIN users_assignemployee ON assignemployee.id=users_assignemployee.idAssignemployee1 INNER JOIN users ON users_assignemployee.idUser7=users.id GROUP BY id');
         designations = result;
         if(designations.length > 0){
-            res.status(200).json({data:designations});
+            res.render('designation/index.ejs',{
+                data:designations
+            });
         }else{
-            res.status(200).json({data:'Aun no se han creado las designaciones!'});
+            res.render('designations/index.ejs',{
+                data:'No se han encontrado nuevas evaluaciones'
+            });
         }
     }catch(err){
 

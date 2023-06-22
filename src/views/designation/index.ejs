@@ -1,0 +1,79 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<!-- component -->
+<%if(typeof data != "undefined") { %>
+<div class="md:px-20 py-3 w-full">
+  <div class="flex items-center ">                     
+    <a href="/employess/generate-pdf" class="btn bg-red-800 text-white mb-3 drop-shadow-xl hover:bg-red-600"></i> generar pdf <i class="fi-sr-file-pdf"></i></a> 
+    <%if(typeof name != 'undefined') { %>
+        <a href="/documents/employees/<%=name%>" target="_blank" class="btn ml-1 drop-shadow-xl bg-green-800 mb-3 text-white hover:bg-green-600"></i>visualizar pdf<i class="fi-sr-file-pdf"></i></a>
+    <%}else{ %>
+      <a class="btn text-white bg-gray-600 mb-3 drop-shadow-xl ml-1">Aun no has creado un documento</a>
+    <%}%> 
+  </div>      
+  
+  
+    <div class="shadow overflow-hidden rounded border-b border-gray-200">
+      <table class="min-w-full bg-white">
+        <thead class="bg-blue-800 text-white">
+          <tr>
+            <th class="text-center px-4 uppercase font-semibold text-sm">ID</th>
+            <th class="text-center px-4 uppercase font-semibold text-sm">estado</th>
+            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Descripcion</th>
+            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Circuito evaluado</td>
+            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Evaluador</td>
+            <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Acciones</td>
+          </tr>
+        </thead>
+     
+        <%data.forEach((Elemento=> {%>
+            <tbody>
+                <tr>
+                    <td class="text-center px-4"><%=Elemento.id%></td>
+                    <td class="text-center px-4"><%=Elemento.estate%></td>
+                    <td class="text-center py-3 px-4"><%=Elemento.description%></td>
+                    <td class="text-center py-3 px-4"><%=Elemento.circuit%></td>
+                    <td class="text-center py-3 px-4"><%=Elemento.evaluador%></td>
+                    <td class="text-center py-3 px-4">
+                        <a href="/designations/search/<%=data.id%>" class="btn bg-green-600  hover:bg-green-800 text-white"><i class="fi-sr-face-glasses hover:text-gray-200"></i></a>  
+                      <a href="/designations/verificate/<%=Elemento.id%>" class="btn bg-blue-600 hover:bg-blue-800 text-white"><i class="fi-sr-badge-check"></i></a>
+                    </td>
+                  </tr>
+            </tbody>
+
+        <%}));%>
+     
+      </table>
+    </div>
+  </div>
+<%}%>
+<%- include('../admin/partials/footer.ejs')%>
+
+<%if(typeof alert != 'undefined') {%>
+  <script>
+      let timerInterval
+      Swal.fire({
+          title: "<%=alertTitle%>",
+          html: "<%=alertHtml%> <b></b> millisegundos.",
+          timer: 2500,
+          timerProgressBar: true,
+          didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+              }, 100)
+          },
+          willClose: () => {
+              clearInterval(timerInterval)
+          }
+          }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+              window.location = "<%=ruta%>"
+          }
+      })
+  </script>
+<%}%>   
