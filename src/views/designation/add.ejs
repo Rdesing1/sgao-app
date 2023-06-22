@@ -1,0 +1,70 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-full bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8">
+<%if(data.length > 0){%>
+    <h1 class="bg-blue-600 p-3 mb-10  rounded-lg flex justify-center items-center text-white">Genera una evaluacion de tu circuito asiganado.<svg class="w-30 h-9 ml-5" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <g transform="translate(0 -1028.4)">
+         <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1029.4)" fill="#27ae60"/>
+         <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1028.4)" fill="#2ecc71"/>
+         <path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/>
+         <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/>
+        </g>
+       </svg></h1>    
+    <form action="/designation/add" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Id circuito</label>
+                <select id="idCircuit2" name="idCircuit2" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option selected disabled>Seleccionar circuito a evaluar</option>
+                  <%data.forEach((item => {%>
+                    <option value="<%=item.id%>"><p class="text-blue-600 hover:text-blue-800">Id: <%=item.id%> | <%=item.name%></p></option>
+                  <%}));%>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Estado:</label>
+                <input reuired class="w-full px-3 py-2 border focus:outline-purple-300 border-gray-300 rounded-md"
+                type="text" id="state" name="state" placeholder="ejemplo: critico ">
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Descripcion:</label>
+              <textarea required id="description" placeholder="ejemplo: sin personal" name="description" class="w-full rounded-md focus:outline-purple-300  px-3 resize-none focus:border-green-400 py-2 border border-gray-300" required id="location" cols="30" rows="10"></textarea>
+          </div>
+          <input
+            class="w-full bg-green-600 hover:bg-green-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300"
+            type="submit" value="Crear designacion">
+          </input>
+        </form>
+      </div>
+    </div>
+    
+
+<%}else{%>
+    <h1 class="bg-red-600 p-3  rounded-lg flex justify-center text-white">No te han asignado ningun circuito. No puedes realizar una designacion! <svg class="w-30 ml-3 h-5" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><style>.cls-1{fill:#fac100;}.cls-2{fill:#ff9500;}.cls-3{fill:#2d4a60;}.cls-4{fill:#263f52;}</style></defs><title>Crisis</title><path class="cls-1" d="M44.5,34.5,28.33,6.5a5,5,0,0,0-8.66,0L3.5,34.5A5,5,0,0,0,7.834,42H40.166a5,5,0,0,0,4.33-7.5Z"/><path class="cls-2" d="M34,37A24.006,24.006,0,0,1,11.344,20.921L3.5,34.5A5,5,0,0,0,7.834,42H40.166a5,5,0,0,0,4.364-7.431A23.9,23.9,0,0,1,34,37Z"/><path class="cls-3" d="M24,30A2.1,2.1,0,0,0,26.1,28.1l1.18-11.8A3,3,0,0,0,24.29,13h-.58a3,3,0,0,0-2.985,3.3L21.905,28.1A2.1,2.1,0,0,0,24,30Z"/><circle class="cls-3" cx="24" cy="34.5" r="3.5"/><path class="cls-4" d="M24,38a3.5,3.5,0,0,0,3.154-2.009,23.838,23.838,0,0,1-6.326-2.949A3.46,3.46,0,0,0,20.5,34.5,3.5,3.5,0,0,0,24,38Z"/></svg></h1>
+<%}%>  
+          
+  
+<%- include('../admin/partials/footer.ejs')%>
+<%if(typeof alert != 'undefined'){%>
+        <script>
+            Swal.fire({
+                title:"<%=alertTitle%>",
+                text:"<%=alertMessage%>",
+                icon:"<%=alertIcon%>",
+                showConfirmButtom:"<%=showConfirmButtom%>",
+                timer:"<%=timer%>"
+            }).then(()=>{
+                window.location ="/<%=ruta%>"
+            });
+
+        </script>
+<%}%>    
+<style>
+    #area:focus{
+        outline:none
+    }
+</style>
