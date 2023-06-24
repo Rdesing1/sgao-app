@@ -68,7 +68,7 @@ router.get('/designation/add',async(req,res) =>{
  
 });
 
-router.post('/designation/add', async(req,res) =>{
+router.post('/designation/employees/add', async(req,res) =>{
     let {state,description,idCircuit2} = req.body;
     let dataDesignation = {
         estate:state,
@@ -76,11 +76,33 @@ router.post('/designation/add', async(req,res) =>{
         idCircuit2:idCircuit2
     } 
     try{
+    
         let result = await pool.query('INSERT INTO designation SET ?',[dataDesignation]);
-        if(result.affectedRows === 1){
-            res.json({message:`desingnacion creada. nuemro: ${result.insertId}`});
+        
+        if(result.affectedRows === 1 ){
+            res.render("designation/add.ejs", {
+                data:'insertando data',
+                titleDocument: "Agregar evaluacion",
+                alert: true,
+                alertTitle: "evalueacion guardada",
+                alertMessage: `Exito al guardar la evaluacion numero: ${result.insertId}`,
+                alertIcon: "success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
         }else{
-            res.json({message:'Designacion no creada.'});
+            res.render("designation/add.ejs", {
+                data:'insertando data',
+                titleDocument: "No se registro la evaluacion",
+                alert: true,
+                alertTitle: "Error al guardar",
+                alertMessage: `No es posible ingresar evaluaciones en este momento.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
         }
         
     }catch(err){
@@ -124,7 +146,17 @@ router.get('/designation/employees/update/:id',async (req,res)=>{
             });
 
         }else{
-            res.json({data:"id not found!"});
+            res.render("designation/update.ejs",{
+                data:"No se ha actualizado la evaluacion.",
+                alertThow: true,
+                titleDocument: `Error`,
+                alertTitle: "error",
+                alertMessage: `el identificador no es correcto.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
         }
     }catch(err){
         res.status(404).json({message:`Ha ocurrido un problema ${err}`});
@@ -142,8 +174,31 @@ router.post('/designation/employees/update/:id', async (req,res)=>{
     try{
         let result = await pool.query('UPDATE designation SET ? WHERE id= ?',[designationData,id]);
         if(result.affectedRows === 1){
-            res.json({Message:'Registro actualizado!'});
+            res.render("designation/update.ejs",{
+                data:"Se ha actualizado la evaluacion!",
+                alertThow: true,
+                titleDocument: `Actualizar el Nucleo, numero ${id}`,
+                alertTitle: "exito",
+                alertMessage: `Nucleo numero ${id}, Actualizado`,
+                alertIcon: "success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
+        }else{
+            res.render("designation/update.ejs",{
+                data:"No se ha actualizado la evaluacion.",
+                alertThow: true,
+                titleDocument: `Error`,
+                alertTitle: "error",
+                alertMessage: `el identificador no es correcto.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
         }
+
     }catch(err){
         res.json({Message:err});
     }
@@ -172,9 +227,27 @@ router.get('/designation/employees/delete/:id',async (req,res) => {
     try{
         let result = await pool.query('DELETE FROM designation WHERE id= ?',[id]);
         if(result.affectedRows === 1){
-            res.json({data:`Registro eliminado ${result.affectedRows}`});
+            res.render('designation/indexEmployeesdesignation.ejs',{
+                data:'Borrando la evaluacion',
+                alert: true,
+                alertTitle: `Borrando la evaluacion numero: ${id}`,
+                alertHtml: "La evaluacion se borrara en: ",
+                timer: 2500,
+                ruta: "/designation/employees"
+        
+             });
         }else{
-            res.json({data:`Id not found, ${result.affectedRows}`})
+            res.render("designation/update.ejs",{
+                data:"No se ha actualizado la evaluacion.",
+                alertThow: true,
+                titleDocument: `Error el ${id} no es correcto.`,
+                alertTitle: "error",
+                alertMessage: `el identificador no es correcto.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "designation/employees"
+            });
         }
     }catch(err){
         res.json({message:`Ha ocurrido un problema: ${err}`});

@@ -4,8 +4,9 @@
         <%-include('../admin/partials/navegation.ejs')%>
         <%-include('../admin/partials/search.ejs')%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
-
-<%if(typeof data != 'undefined') {%>
+<%if(typeof data === 'string') {%>
+    <h1 class="text-center font-bold p-3 mt-5 bg-blue-600 text-white rounded-full"><%=data%></h1>
+<%}else if(typeof data != 'undefined') {%>
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div class="text-center pb-12">
             <h2 class="text-base font-bold text-indigo-600">
@@ -46,6 +47,8 @@
 
 <%}%>    
 
+
+
 <script>
     let btn = document.getElementById('buttomH1');
     
@@ -59,6 +62,33 @@
 
 
 </script>
+
+<%if(typeof alert != 'undefined') {%>
+    <script>
+        let timerInterval
+        Swal.fire({
+            title: "<%=alertTitle%>",
+            html: "<%=alertHtml%> <b></b> millisegundos.",
+            timer: 2500,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                window.location = "<%=ruta%>"
+            }
+        })
+    </script>
+<%}%>   
 
 <style>
     #buttomH1:hover{

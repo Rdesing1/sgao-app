@@ -4,7 +4,16 @@
     <%- include('../admin/partials/search.ejs')%>
 <body class="bg-gray-100">
   <div class="container mx-auto py-8">
-<%if(data.length > 0){%>
+<%if(typeof data === 'string') {%>   
+  <h1 class="bg-blue-600 p-3 mb-10  rounded-lg flex justify-center items-center text-white">Has creado la evaluacion exitosamente.<svg class="w-30 h-9 ml-5" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <g transform="translate(0 -1028.4)">
+     <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1029.4)" fill="#27ae60"/>
+     <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1028.4)" fill="#2ecc71"/>
+     <path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/>
+     <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/>
+    </g>
+   </svg></h1> 
+<%}else if(data.length > 0){%>
     <h1 class="bg-blue-600 p-3 mb-10  rounded-lg flex justify-center items-center text-white">Genera una evaluacion de tu circuito asiganado.<svg class="w-30 h-9 ml-5" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <g transform="translate(0 -1028.4)">
          <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1029.4)" fill="#27ae60"/>
@@ -13,7 +22,7 @@
          <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/>
         </g>
        </svg></h1>    
-    <form action="/designation/add" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+    <form action="/designation/employees/add" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="typeUser">Id circuito</label>
                 <select id="idCircuit2" name="idCircuit2" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

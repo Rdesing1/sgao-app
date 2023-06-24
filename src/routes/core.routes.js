@@ -186,9 +186,18 @@ router.get('/core/delete/:id', async (req,res) =>{
                 timer: 2500,
                 ruta: "/core"
         
-             })
+             });
         }else{
-            res.json({message:"el core no se ha podido eliminar"});
+            res.render("cores/index.ejs", {
+                alertThow: true,
+                titleDocument: `Error.`,
+                alertTitle: `identificador no encontrado`,
+                alertMessage: `Imposible borrar un nucleo no existente.`,
+                alertIcon: "warning",
+                showConfirmButtom: false,
+                timer: 4500,
+                ruta: "core/"
+            });
         }
     }catch(err){
         res.render("cores/index.ejs", {
