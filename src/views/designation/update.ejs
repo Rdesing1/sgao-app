@@ -1,0 +1,55 @@
+    <%- include('../admin/partials/header.ejs')%>
+<div class="flex h-full bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8">
+<%if(typeof data !=  'undefined'){%>
+    <h1 id="btn-h1" class="bg-blue-600 p-3 mb-10  rounded-lg flex justify-center items-center text-white">Actualiza tu evaluacion.<svg class="w-30 h-9 ml-5" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <g transform="translate(0 -1028.4)">
+         <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1029.4)" fill="#27ae60"/>
+         <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" transform="translate(0 1028.4)" fill="#2ecc71"/>
+         <path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/>
+         <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/>
+        </g>
+       </svg></h1>    
+    <form action="/designation/employees/update/<%=data.id%>" method="post" class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm  font-bold mb-2" for="typeUser">Id circuito</label>
+                <input reuired class="w-full px-3 py-2 border text-center focus:outline-purple-300 border-gray-300 rounded-md"
+                type="text" id="id" name="id" required value="<%=data.id%>" disabled>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Estado:</label>
+                <input reuired class="w-full px-3 py-2 border focus:outline-purple-300 border-gray-300 rounded-md"
+                type="text" id="estate" name="estate" value="<%=data.estate%>">
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="Nombres">Descripcion:</label>
+              <textarea required id="description" name="description" class="w-full rounded-md focus:outline-purple-300  text-center px-3 resize-none focus:border-green-400 py-2 border border-gray-300" required id="location" cols="30" rows="10"><%=data.description%></textarea>
+          </div>
+          <input
+            class="w-full bg-green-600 hover:bg-green-800 text-white text-sm font-bold py-2 px-4 rounded-md transition duration-300"
+            type="submit" value="Actualizar designacion">
+          </input>
+        </form>
+      </div>
+    </div>
+<%}%> 
+          
+<%- include('../admin/partials/footer.ejs')%>
+
+<style>
+    #btn-h1:hover{
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    let $btn = document.getElementById('btn-h1');
+    $btn.addEventListener('click',(e)=>{
+        $btn.classList.toggle('hidden');
+    }); 
+</script>

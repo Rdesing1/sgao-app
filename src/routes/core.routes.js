@@ -177,7 +177,7 @@ router.post('/core/update/:id',async (req,res) => {
 router.get('/core/delete/:id', async (req,res) =>{
     let id = req.params.id;
     try{
-        let result = await pool.query("DELETE FROM core WHERE id__Core = ?",[id]);//DELETE FROM charges WHERE id=?", [id]
+        let result = await pool.query("DELETE FROM core WHERE id__Core = ?",[id]);
         if(result.affectedRows === 1){
             res.render('cores/index.ejs',{
                 alert: true,

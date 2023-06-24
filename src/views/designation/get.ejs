@@ -1,0 +1,34 @@
+<%-include('../admin/partials/header.ejs')%>
+      <!-- Desktop sidebar -->
+      <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <%-include('../admin/partials/navegation.ejs')%>
+        <%-include('../admin/partials/search.ejs')%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
+
+<%if(typeof data != 'undefined') {%>
+    <div class='flex items-center justify-left h-full flex-wrap-reverse'>
+        <div class='w-full max-w-lg py-8 flex flex-row items-center justify-center mx-auto bg-white rounded-lg shadow-xl'>
+            <div class="flex flex-col md:flex-row w-3/4 md:w-5/6 space-x-0 md:space-x-8">
+                <div class="w-full md:w-2/5 flex flex-col items-center justify-center">
+                    <figure class="w-1/2 md:w-full  rounded-full overflow-hidden">
+                        <img src="/images/task.png" alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
+                    </figure>
+                </div>
+                <div class="w-full md:w-3/5 space-y-4 flex flex-col justify-center items-center">
+                    <div class="flex flex-col justify-center">
+                        <h1 class="text-center md:text-left text-2xl font-bold text-gray-900 border-b pb-2 mb-2 uppercase"><strong class="text-black"><%=data.circuit%></strong></h1>
+                        <p class="inline text-gray-700 font-normal border-b leading-6 w-full text-base"> identificador: <strong><%=data.id%></strong>,<br> Empleado: <strong><%=data.evaluador%></strong></p>
+                        
+                        <p class="pt-3 text-left"><strong>Descripcion de la evaluacion:</strong> <%=data.description%></p>
+                    </div>
+                    <a href="/designations" class=" bg-purple-600 hover:bg-purple-800 p-2 uppercase bold rounded-full w-full text-white text-hover text-center shadow-md">
+                        <i class="fi-sr-hand-back-point-left"></i> Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+<%}%>    

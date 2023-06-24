@@ -1,5 +1,5 @@
 <%- include('../admin/partials/header.ejs')%>
-<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+<div class="flex h-full bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <%- include('../admin/partials/navegation.ejs')%>
     <%- include('../admin/partials/search.ejs')%>
 <!-- component -->
@@ -37,7 +37,7 @@
                     <td class="text-center py-3 px-4"><%=Elemento.circuit%></td>
                     <td class="text-center py-3 px-4"><%=Elemento.evaluador%></td>
                     <td class="text-center py-3 px-4">
-                        <a href="/designations/search/<%=data.id%>" class="btn bg-green-600  hover:bg-green-800 text-white"><i class="fi-sr-face-glasses hover:text-gray-200"></i></a>  
+                        <a href="/designations/search/<%=Elemento.id%>" class="btn bg-green-600  hover:bg-green-800 text-white"><i class="fi-sr-face-glasses hover:text-gray-200"></i></a>  
                       <a href="/designations/verificate/<%=Elemento.id%>" class="btn bg-blue-600 hover:bg-blue-800 text-white"><i class="fi-sr-badge-check"></i></a>
                     </td>
                   </tr>
