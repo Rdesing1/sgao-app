@@ -1,0 +1,41 @@
+<%- include('../admin/partials/header.ejs')%>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <%- include('../admin/partials/navegation.ejs')%>
+    <%- include('../admin/partials/search.ejs')%>
+<!-- component -->
+
+<div class="md:px-20 py-3 w-full">
+<!--table-->
+<div class="shadow overflow-hidden rounded border-b border-gray-200">
+    <table class="min-w-full bg-white">
+      <thead class="bg-blue-800 text-white">
+        <tr>
+          <th class="text-left px-4 uppercase font-semibold text-sm">ID</th>
+          <th class="text-left px-4 uppercase font-semibold text-sm">Fecha</th>
+          <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nomina</th>
+          <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acciones</td>
+        </tr>
+      </thead>
+   
+      <%data.forEach((Elemento=> {%>
+          <tbody>
+              <tr>
+                  <td class="text-left px-4"><%=Elemento.id%></td>
+                  <td class="text-left px-4"><%=new Date(Elemento.fecha).toDateString()%></td>
+                  <td class="text-left py-3 px-4 flex items-center lowercase"><img alt="imagen" class="border-none w-30 h-10" src="/images/excel.jpg" frameborder="0"></img><p><%=Elemento.document%></p></td>
+                 
+                  <td class="text-left py-3 px-4">
+                    <a href="/payrolls/Update/<%=Elemento.id%>" class="btn bg-blue-600 hover:bg-blue-800 text-white"><i class="pr-1 fi-sr-replace"></i>Actualizar</a>
+                    <a href="/payrolls/Dowload/<%=Elemento.id%>" class="btn bg-green-600 hover:bg-green-800 text-white">
+                    Descargar</a>
+                  <a href="/payrolls/delete/<%=Elemento.id%>" class="btn inline bg-red-600 hover:bg-red-800 text-white"><i class="pr-1 fi-sr-circle-trash"></i> Borrar</a>
+
+                  </td>
+                </tr>
+          </tbody>
+
+      <%}));%>
+   
+    </table>
+  </div>
+</div>  

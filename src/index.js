@@ -16,6 +16,7 @@ const coreRoutes = require("./routes/core.routes.js");
 const circuitRoutes = require("./routes/circuit.routes.js");
 const assingRoutes = require("./routes/assign.routes.js");
 const designationRoutes = require("./routes/designation.routes.js");
+const payrolsRoutes = require("./routes/payrol.routes.js"); 
 
 // initialization of routes the vigilants
 const assignedRoutes = require('./routes/assignedOrder.routes.js');
@@ -60,6 +61,8 @@ app.use(coreRoutes);
 app.use(circuitRoutes);
 app.use(assingRoutes);
 app.use(designationRoutes);
+app.use(payrolsRoutes);
+
 
 // routes of level 3 
 app.use(assignedRoutes);
