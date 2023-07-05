@@ -1,9 +1,12 @@
 <%- include('../admin/partials/header.ejs')%>
-<div class="flex h-max	 bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+<div class="flex h-full	 bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <%- include('../admin/partials/navegation.ejs')%>
     <%- include('../admin/partials/search.ejs')%>
 
-    <%if(data.length > 0){%>
+    <%if(typeof data === 'string'){%>
+        <div class="bg-red-600 w-full text-white text-center border-red-800 p-3"><%=data%></div>
+
+    <%}else if(typeof data === 'object'){%>
         <div class="bg-blue-600 w-full text-white font-semibold hover:font-bold text-center border-blue-800 uppercase p-3">Asignaciones a circuitos. Pendites!</div>
         <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
 
@@ -19,13 +22,8 @@
                                 <p class="text-base text-gray-400 font-normal">Dev Ops</p>
                             </div>
                         </div>
-                <%}));%>
-             
-              
-
+                <%}));%>        
             </div>
         </section>
-    <%}else{%>
-        <div class="bg-red-600 w-full text-white text-center border-red-800 p-3">No hay datos!</div>
     <%}%>        
 <%- include('../admin/partials/footer.ejs')%>

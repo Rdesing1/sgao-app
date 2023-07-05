@@ -165,7 +165,7 @@ router.get('/employees/update/:id',isLoggedIn,async (req,res) =>{
     }
 });
 
-// update employees save
+// update employees and  save
 router.post('/employees/update/:id',isLoggedIn, async (req,res) =>{
     const id = req.params.id;
     const {ci,names,lastNames,idUser4,idCharge4,idCore4} = req.body;

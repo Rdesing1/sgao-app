@@ -32,11 +32,17 @@ router.get('/designation/employees',async(req,res) =>{
     try{
         let designation = [];
         let result = await pool.query('SELECT designation.id ,designation.estate,designation.description,circuit.name as circuit,users.id as iduser,users.fullName as evaluador FROM designation INNER JOIN circuit ON circuit.id=designation.idCircuit2 INNER JOIN assignemployee ON circuit.id=assignemployee.idCircuit INNER JOIN users_assignemployee ON assignemployee.id=users_assignemployee.idAssignemployee1 INNER JOIN users ON users_assignemployee.idUser7=users.id WHERE users.id=? GROUP BY designation.id',[designations.id]);
-        designation = result;
+        
         // res.status(200).json({data:designation});
-        if(designation.length > 0){
+        if(result.length > 0){
+            designation = result;
             res.render('designation/indexEmployeesdesignation.ejs',{
                 data:designation
+            });
+        }else{
+
+            res.render('designation/indexEmployeesdesignation.ejs',{
+                data:'Aun no has realizado una evalucion'
             });
         }
     }catch(err){
@@ -51,8 +57,8 @@ router.get('/designation/add',async(req,res) =>{
     try {
         let circuit = [];
         let result = await pool.query("SELECT users.id, users.fullName, typeuser.role,assignemployee.idCircuit as id, assignemployee.nameCircuit as name, assignemployee.dates,assignemployee.entrance,assignemployee.exits FROM users_assignemployee INNER JOIN users ON users_assignemployee.idUser7=users.id INNER JOIN typeuser ON users.typeUser=typeuser.id INNER JOIN assignemployee ON users_assignemployee.idAssignemployee1=assignemployee.id WHERE users.id = ?",[id]);
-        circuit = result;
-        if(circuit.length > 0){
+        if(result.length > 0){
+            circuit = result;
             res.render('designation/add.ejs',{
                 data:circuit
             });

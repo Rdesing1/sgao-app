@@ -63,7 +63,7 @@ router.post('/payrolls/add',saveDocument.single('document'),async (req,res)=>{
                 alertIcon: "success",
                 showConfirmButtom: false,
                 timer: 4500,
-                ruta: "payrols/"
+                ruta: "payrolls/"
             });
         }else{
             res.render("payrol/add.ejs", {
@@ -74,7 +74,7 @@ router.post('/payrolls/add',saveDocument.single('document'),async (req,res)=>{
                 alertIcon: "error",
                 showConfirmButtom: false,
                 timer: 4500,
-                ruta: "payrols/"
+                ruta: "payrolls/"
             });
         }
        
@@ -83,28 +83,97 @@ router.post('/payrolls/add',saveDocument.single('document'),async (req,res)=>{
     }
 });
 
+router.get('/payrolls/Dowload/:id',async (req,res) =>{
+    let id = req.params.id;
+    try{
+        let payroll = [];
+        let result = await pool.query("SELECT * FROM payroll WHERE id= ?",[id]);
+        if(result.length > 0){
+            payroll = result[0];
+            let nameOfDocument = path.join('src','public','documents','payrols',`${payroll.document}`);
+            res.download(nameOfDocument);
+        }
+    }catch(err){
+        res.json({err});
+    }
+    // res.download();
+})
+
+// router.get('/payrolls/Update/:id',async(req,res) =>{
+//     let id = req.params.id;
+//     try{
+//         let payrolls = [];
+//         let result = await pool.query("SELECT * FROM payroll WHERE id= ?",[id]);
+//         if(result.length > 0){
+//             payrolls = result[0];
+//             res.render('payrol/update.ejs',{
+//                 data:payrolls
+//             });
+//         }
+//     }catch(err){
+
+//     }
+// });
+
 
 router.get('/payrolls/delete/:id',async(req,res) =>{
-    id = req.params.id;
+    let id = req.params.id;
     let names = [];
     try{
         let nameDocument = await pool.query('SELECT document from payroll WHERE id = ?',[id]);
-       
         if(nameDocument.length > 0){
             names = nameDocument[0];
-            let nameOfDocument = path.join('src','public','documents','payrols',`${names.document}`);
+            let item = names.document;
+            let nameOfDocument = path.join('src','public','documents','payrols',`${item}`);
             if(fs.existsSync(nameOfDocument)){
-                fs.unlink(names.document);
-                
+                fs.unlink(nameOfDocument,function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
             }else{
-                res.send("problema al encontrar el archivo.");
+                console.log('el archivo no existe!');
             }
 
+            let result = await pool.query('DELETE FROM payroll WHERE id= ?',[id]);
+            if(result.affectedRows === 1){
+                res.render('payrol/index.ejs',{
+                    alert: true,
+                    titleDocument: `Nomina ${id}`,
+                    alertTitle: `Borrada`,
+                    alertMessage: `La nomina ha sido eliminada con exito.`,
+                    alertIcon: "success",
+                    showConfirmButtom: false,
+                    timer: 4500,
+                    ruta: "payrolls/"
+                });
+            }else{
+                res.render('payrol/index.ejs',{
+                    alert: true,
+                    titleDocument: `Nomina ${id}`,
+                    alertTitle: `No encontrada`,
+                    alertMessage: `La nomina ${id} no existe.`,
+                    alertIcon: "error",
+                    showConfirmButtom: false,
+                    timer: 4500,
+                    ruta: "payrolls/"
+                });
+            }
         }else{
-            res.json({data:"id not found"});
+            res.render('payrol/index.ejs',{
+                alert: true,
+                titleDocument: `Nomina ${id}`,
+                alertTitle: `No encontrada`,
+                alertMessage: `La nomina ${id} no existe.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 4500,
+                ruta: "payrolls/"
+            });
         }
+        
     }catch(err){
-        res.status(404).json({err});
+        res.status(404).json({message:`Ha ocurrido un problema ${err}`});
     }
 });
 

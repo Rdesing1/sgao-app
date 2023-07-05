@@ -6,15 +6,21 @@
 <!-- comment form -->
 
    <div class="flex mx-auto mt-5">
-    <form action="/payrolls/add"  method="post" class="w-full max-w-xl bg-white rounded-lg px-4 pt-2" id="form1" enctype="multipart/form-data">
+    <form action="/payrolls/update/<%=data.id%>"  method="post" class="w-full max-w-xl bg-white rounded-lg px-4 pt-2" id="form1" enctype="multipart/form-data">
        <div class="flex flex-wrap -mx-3 mb-6">
-          <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Nomina del personal</h2>
+          <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Actualizacion de nomina del personal</h2>
           <div class="w-full md:w-full px-3 mb-2 mt-2">
-            <input name="fecha" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="grid-password" type="date">
+            <input name="id" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="grid-password" type="number" required value="<%=data.id%>" disabled>
           </div>
           <div class="w-full md:w-full px-3 mb-2 mt-2">
-            <input name="document"  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="grid-password" type="file">
+            <input name="fecha" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="grid-password" type="text" required value="<%=data.fecha%>"disabled>
           </div>
+          <div class="w-full md:w-full px-3 mb-2 mt-2 flex items-center justify-center">
+           <img src="/images/excel.jpg" class="w-30 h-20" alt="documento excel"><p><%=data.document%></p>
+          </div>
+          <div class="w-full md:w-full px-3 mb-2 mt-2 flex items-center justify-center">
+            <input type="file" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3">
+           </div>
           
           <div class="w-full md:w-full flex items-start md:w-full px-3">
              <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">

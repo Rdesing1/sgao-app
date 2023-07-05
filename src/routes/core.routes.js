@@ -66,7 +66,7 @@ router.post('/core/add', async (req,res)=>{
                 alertIcon: "Success",
                 showConfirmButtom: false,
                 timer: 2500,
-                ruta: "core/"
+                                ruta: "core/"
             });
             
         }

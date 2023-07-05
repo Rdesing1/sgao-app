@@ -248,6 +248,6 @@ router.get('/assign/delete/:id',async(req,res) =>{
         res.status(404).json({message:"Ha ocurrido un problema. " ,err});
 
     }
-})
+});
 
 module.exports = router;

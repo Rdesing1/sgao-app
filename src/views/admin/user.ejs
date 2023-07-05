@@ -15,21 +15,21 @@
             </div>
             <div class="w-full md:w-3/5 space-y-4 flex flex-col justify-center items-center">
                 <div class="flex flex-col justify-center">
-                    <h1 class="text-center md:text-left text-2xl font-bold text-gray-900">Justine Howell</h1>
-                    <p class="inline text-gray-700 font-normal leading-6 w-full text-base">UX Researcher, Co-host of the Interesting Design podcast
-                        and a proud mother of three children</p>
+                    <h1 class="text-center md:text-left text-2xl font-bold text-gray-900 uppercase"><%=data.fullName%></h1>
+                    <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>ID:</strong> <%=data.id%></p>
+                    <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>Usuario:</strong> <%=data.name%></p>
+                    <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>Email:</strong> <br> <%=data.email%></p>
+                    <%if(data.typeUser === 1){%>
+                        <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>Rol:</strong> Empleado</p>
+                    <%}else if(data.typeUser === 2){%>
+                        <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>Rol:</strong> Administrador</p> 
+                    <%}else{%>
+                        <p class="inline mt-2 text-gray-700 font-normal leading-6 w-full text-base"><strong>Rol:</strong> Director</p> 
+                    <%}%>    
                 </div>
-                <ul class="space-y-4  md:space-y-0 space-x-0 md:space-x-4 flex flex-col md:flex-row text-left justify-center">
-                    <li class="text-sm"><i class="iconoir-pin-alt mr-2"></i>NYC</li>
-                    <li class="text-sm"><i class="iconoir-calendar mr-2"></i>Member since 2019 </li>
-                </ul>
-
-                <ul class="space-x-4 flex flex-row justify-center w-full mb-4">
-                    <li class="text-sm text-gray-800"><strong class="text-gray-900">10.9k</strong> Followers</li>
-                    <li class="text-sm text-gray-800"><strong class="text-gray-900">100</strong> Following</li>
-                </ul>
+               
                 <a href="/profile" class=" bg-purple-600 hover:bg-purple-800 p-2 uppercase bold rounded-full w-full text-white text-hover text-center shadow-md">
-                    <i class="fi-sr-hand-back-point-left"></i> regresar
+                    <i class="fi-sr-hand-back-point-left"></i> Regresar
                 </a>
             </div>
         </div>
