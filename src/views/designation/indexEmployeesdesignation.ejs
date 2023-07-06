@@ -27,14 +27,14 @@
             <%data.forEach((Elemento=> {%>
                 <div class="w-full bg-white rounded-lg p-12 flex flex-col justify-center items-center">
                     <div class="mb-8">
-                        <img class="object-center object-cover rounded-full h-36 w-36" src="/images/task.png" alt="photo">
+                        <img class="object-center object-cover rounded-full h-36 w-36" src="/images/check.jpg" alt="photo">
                     </div>
                     <div class="text-left">
                         <p class="text- text-black-700">Identificador: <strong><%=Elemento.id%></strong></p>
                         <p class="text-base text-black-400 font-normal">Circuito: <strong><%=Elemento.circuit%></strong></p>
                         <p class="text-base text-black-400 font-normal border-b">Estado: <strong><%=Elemento.estate%></strong></p>
                         <p class="text-black-400 font-normal text-center pt-2">Descripcion: <%=Elemento.description%></p> 
-                        <p class="pt-2 text-center"><a href="/designation/employees/update/<%=Elemento.id%>" class="btn bg-blue-600 flex justify-center items-center text-white hover:bg-blue-800"><i class="pr-1 fi-sr-replace"></i></a><a href="/designation/employees/delete/<%=Elemento.id%>" class="bg-red-600 btn flex items-center justify-center text-white hover:bg-red-800 mt-2"><i class="pr-1 fi-sr-circle-trash"></i></a></p>   
+                        <p class="pt-2 text-center"><a href="/designation/employees/update/<%=Elemento.id%>" class="btn bg-blue-600 flex justify-center items-center w-full text-white hover:bg-blue-800"><i class="pr-1 fi-sr-replace"></i></a><a href="/designation/employees/delete/<%=Elemento.id%>" class="bg-red-600 btn flex items-center justify-center text-white hover:bg-red-800 mt-2"><i class="pr-1 fi-sr-circle-trash"></i></a></p>   
                     </div>
                 </div>
             <%}))%>

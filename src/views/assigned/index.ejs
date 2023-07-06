@@ -18,8 +18,11 @@
                                 <img class="object-center object-cover rounded-full h-36 w-36" src="/images/task.png" alt="photo">
                             </div>
                             <div class="text-center">
-                                <p class="text-xl text-gray-700 font-bold mb-2">Jade Bradley</p>
-                                <p class="text-base text-gray-400 font-normal">Dev Ops</p>
+                                <p class="text-xl text-gray-700 font-bold mb-2 uppercase"><%=Elemento.nameCircuit%></p>
+                                <p class="text-center text-gray-700 font-normal">Datos de la asignacion</p>
+                                <p class="text-left text-gray-400 font-normal"><%=new Date(Elemento.dates).toDateString()%></p>
+                                <p class="text-left text-gray-400 font-normal">Entrada: <%=Elemento.entrance%></p>
+                                <p class="text-left text-gray-400 font-normal">salida: <%=Elemento.exits%></p>
                             </div>
                         </div>
                 <%}));%>        

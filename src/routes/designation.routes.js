@@ -9,14 +9,14 @@ const e = require('connect-flash');
 router.get('/designations',async (req,res) =>{
     try{
         let designations = [];
-        let result = await pool.query('SELECT designation.id as id,designation.estate,designation.description,circuit.name as circuit,users.fullName as evaluador FROM designation INNER JOIN circuit ON circuit.id=designation.idCircuit2 INNER JOIN assignemployee ON circuit.id=assignemployee.idCircuit INNER JOIN users_assignemployee ON assignemployee.id=users_assignemployee.idAssignemployee1 INNER JOIN users ON users_assignemployee.idUser7=users.id GROUP BY id');
+        let result = await pool.query('SELECT designation.id,designation.estate,designation.description,designation.verificate,circuit.name,users.fullName FROM designation INNER JOIN circuit ON designation.idCircuit2=circuit.id INNER JOIN users ON designation.userId55=users.id WHERE designation.verificate <> true GROUP BY designation.id');
         designations = result;
         if(designations.length > 0){
             res.render('designation/index.ejs',{
                 data:designations
             });
         }else{
-            res.render('designations/index.ejs',{
+            res.render('designation/index.ejs',{
                 data:'No se han encontrado nuevas evaluaciones'
             });
         }
@@ -31,9 +31,8 @@ router.get('/designation/employees',async(req,res) =>{
     } 
     try{
         let designation = [];
-        let result = await pool.query('SELECT designation.id ,designation.estate,designation.description,circuit.name as circuit,users.id as iduser,users.fullName as evaluador FROM designation INNER JOIN circuit ON circuit.id=designation.idCircuit2 INNER JOIN assignemployee ON circuit.id=assignemployee.idCircuit INNER JOIN users_assignemployee ON assignemployee.id=users_assignemployee.idAssignemployee1 INNER JOIN users ON users_assignemployee.idUser7=users.id WHERE users.id=? GROUP BY designation.id',[designations.id]);
-        
-        // res.status(200).json({data:designation});
+        let result = await pool.query('SELECT designation.id,designation.estate,designation.description,designation.verificate,circuit.name,users.fullName FROM designation INNER JOIN circuit ON designation.idCircuit2=circuit.id INNER JOIN users ON designation.userId55=users.id WHERE designation.verificate = true and users.id=? GROUP BY designation.id',[designations.id]);
+    
         if(result.length > 0){
             designation = result;
             res.render('designation/indexEmployeesdesignation.ejs',{
@@ -42,7 +41,7 @@ router.get('/designation/employees',async(req,res) =>{
         }else{
 
             res.render('designation/indexEmployeesdesignation.ejs',{
-                data:'Aun no has realizado una evalucion'
+                data:'Sin asignaciones para enviar a verificar.'
             });
         }
     }catch(err){
@@ -60,7 +59,8 @@ router.get('/designation/add',async(req,res) =>{
         if(result.length > 0){
             circuit = result;
             res.render('designation/add.ejs',{
-                data:circuit
+                data:circuit,
+                id:id
             });
         }else{
             let data = 0
@@ -75,12 +75,14 @@ router.get('/designation/add',async(req,res) =>{
 });
 
 router.post('/designation/employees/add', async(req,res) =>{
-    let {state,description,idCircuit2} = req.body;
+    let {state,description,idCircuit2,usuario} = req.body;
     let dataDesignation = {
         estate:state,
         description:description,
-        idCircuit2:idCircuit2
+        idCircuit2:idCircuit2,
+        userId55:usuario
     } 
+    
     try{
     
         let result = await pool.query('INSERT INTO designation SET ?',[dataDesignation]);
@@ -141,6 +143,7 @@ router.get('/designations/search/:id',async (req,res) =>{
 
 // update designation of employees
 router.get('/designation/employees/update/:id',async (req,res)=>{
+    let userid = req.user.id;
     let id = req.params.id;
     try{    
         let designation = [];
@@ -148,7 +151,8 @@ router.get('/designation/employees/update/:id',async (req,res)=>{
         designation = result;
         if(designation.length > 0){
             res.render('designation/update.ejs',{
-                data:designation[0]
+                data:designation[0],
+                userid:userid
             });
 
         }else{
@@ -172,11 +176,13 @@ router.get('/designation/employees/update/:id',async (req,res)=>{
 // update designation of employees post 
 router.post('/designation/employees/update/:id', async (req,res)=>{
     let id = req.params.id;
-    let {estate,description} = req.body;
+    let {estate,description,usuario} = req.body;
     let designationData = {
         estate:estate,
-        description:description
+        description:description,
+        userId55:usuario
     } 
+    
     try{
         let result = await pool.query('UPDATE designation SET ? WHERE id= ?',[designationData,id]);
         if(result.affectedRows === 1){
@@ -189,7 +195,7 @@ router.post('/designation/employees/update/:id', async (req,res)=>{
                 alertIcon: "success",
                 showConfirmButtom: false,
                 timer: 2500,
-                ruta: "designation/employees"
+                ruta: "designations"
             });
         }else{
             res.render("designation/update.ejs",{
@@ -201,7 +207,7 @@ router.post('/designation/employees/update/:id', async (req,res)=>{
                 alertIcon: "error",
                 showConfirmButtom: false,
                 timer: 2500,
-                ruta: "designation/employees"
+                ruta: "designations"
             });
         }
 
@@ -216,11 +222,29 @@ router.get('/designations/verificate/:id', async(req,res)=>{
         id:req.params.id
     } 
     try {
-        let result = await pool.query('update FROM designation WHERE id= ?',[designation.id]);
+        let result = await pool.query('UPDATE designation set verificate = ? WHERE id= ?',[true,designation.id]);
         if(result.affectedRows === 1){
-            res.redirect('/designations');
+            res.render('designation/index.ejs',{
+                data:'Verificando la evaluacion',
+                alert: true,
+                alertTitle: `verificando la evaluacion numero: ${designation.id}`,
+                alertHtml: "La evaluacion se verificara en: ",
+                timer: 2500,
+                ruta: "/designations"
+        
+             });
         }else{
-            res.json({data:'designation not found!'});
+            res.render('designation/index.ejs',{
+                data:"No se ha verificado la evaluacion.",
+                alertThow: true,
+                titleDocument: `Error`,
+                alertTitle: "error",
+                alertMessage: `el identificador no es correcto.`,
+                alertIcon: "error",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "/designations"
+            })
         }
     } catch (err) {
         res.status(404).json({message:err});
@@ -243,8 +267,8 @@ router.get('/designation/employees/delete/:id',async (req,res) => {
         
              });
         }else{
-            res.render("designation/update.ejs",{
-                data:"No se ha actualizado la evaluacion.",
+            res.render("designation/indexEmployeesdesignation.ejs",{
+                data:"No se ha borrado la evaluacion.",
                 alertThow: true,
                 titleDocument: `Error el ${id} no es correcto.`,
                 alertTitle: "error",
@@ -252,7 +276,7 @@ router.get('/designation/employees/delete/:id',async (req,res) => {
                 alertIcon: "error",
                 showConfirmButtom: false,
                 timer: 2500,
-                ruta: "designation/employees"
+                ruta: "/designation/employees"
             });
         }
     }catch(err){

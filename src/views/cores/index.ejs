@@ -5,7 +5,7 @@
 <!-- component -->
 <%if(typeof data != "undefined") { %>
 <div class="md:px-20 py-3 w-full">
-  <div class="flex items-center ">                     
+  <div class="flex items-center hidden ">                     
     <a href="/employess/generate-pdf" class="btn bg-red-800 text-white mb-3 drop-shadow-xl hover:bg-red-600"></i> generar pdf <i class="fi-sr-file-pdf"></i></a> 
     <%if(typeof name != 'undefined') { %>
         <a href="/documents/employees/<%=name%>" target="_blank" class="btn ml-1 drop-shadow-xl bg-green-800 mb-3 text-white hover:bg-green-600"></i>visualizar pdf<i class="fi-sr-file-pdf"></i></a>
