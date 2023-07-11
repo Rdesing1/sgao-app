@@ -59,4 +59,19 @@
 </div>
 <%- include('../admin/partials/footer.ejs')%>
 
+<%if(typeof alert != 'undefined'){%>
+  <script>
+      Swal.fire({
+          title:"<%=alertTitle%>",
+          text:"<%=alertMessage%>",
+          icon:"<%=alertIcon%>",
+          showConfirmButtom:"<%=showConfirmButtom%>",
+          timer:"<%=timer%>"
+      }).then(()=>{
+          window.location ="/<%=ruta%>"
+      });
+
+  </script>
+<%}%>    
+
    

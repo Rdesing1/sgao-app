@@ -135,7 +135,16 @@ router.post("/employees/add",isLoggedIn, async (req,res) =>{
     try{
         const result = await pool.query("INSERT INTO employees SET ?",[dataEmployees]);
         if(result.affectedRows === 1){
-            res.send("Se ha cargado el empleado. proximamente habra una redireccion y una alerta de confirmacion");
+            res.render("employees/add.ejs", {
+                titleDocument: "Agregar Empleado",
+                alert: true,
+                alertTitle: "Guardar empleado",
+                alertMessage: "Exito al guardar el empleado",
+                alertIcon: "success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "employees/"
+            });
         }
     }catch(err){
         if(err.code == "ER_NO_REFERENCED_ROW_2"){res.json({Message:"El id no exist"})
@@ -161,7 +170,7 @@ router.get('/employees/update/:id',isLoggedIn,async (req,res) =>{
 
     })
     } catch (error) {
-        
+        res.json({error});
     }
 });
 
@@ -180,7 +189,16 @@ router.post('/employees/update/:id',isLoggedIn, async (req,res) =>{
     try{
         const newData = await pool.query("UPDATE employees SET ? WHERE id=?",[newEmployees,id]);
         if(newData.affectedRows === 1){
-            res.json({message:"actualizado con exito"});
+            res.render("employees/add.ejs", {
+                titleDocument: "Agregar actualizado",
+                alert: true,
+                alertTitle: "Empleado  actualizado",
+                alertMessage: "Exito al actualizar el empleado",
+                alertIcon: "success",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "employees/"
+            });
         }
     }catch(err){
         res.json({err});
@@ -193,7 +211,16 @@ router.get('/employees/delete/:id',isLoggedIn, async (req,res) =>{
     try{
         const result = await pool.query("DELETE FROM employees WHERE id=?",[id]);
         if(result.affectedRows === 1){
-            res.json({message:"borrado con exito!"});
+            res.render("employees/add.ejs", {
+                titleDocument: "Agregar Empleado",
+                alert: true,
+                alertTitle: "Empleado eliminado",
+                alertMessage: "Exito al eliminar el empleado",
+                alertIcon: "warning",
+                showConfirmButtom: false,
+                timer: 2500,
+                ruta: "employees/"
+            });
         }else{
             res.json({message:"el registro no existe"});
         }
